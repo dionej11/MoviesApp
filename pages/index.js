@@ -1,9 +1,13 @@
 import Head from 'next/head'
 import { useAuth } from './context/authContext';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import Logo from '../assets/Logo.png';
+
 // import { ProtectedRoute } from './protectedRoute';
 import Link from 'next/link';
-import { Example } from '../components/example/example';
+import { Container } from '../components/example/templateContainer';
+// import { Example } from '../components/example/example';
 
 export default function Home() {
   const router = useRouter();
@@ -31,11 +35,12 @@ export default function Home() {
       </Head>
       {
         user ?
-        <div>
-          <h1>Welcome {user.email}</h1>
-          <Example>Hola jejeje</Example>
-          <button onClick={handleLogout}>Salir</button>
-        </div>
+        <Container>
+          <Image src={Logo} alt="Logo" width="100" />
+          <p>Lo más reciente</p>
+          {/* <h1>Welcome {user.email}</h1>
+          <button onClick={handleLogout}>Salir</button> */}
+        </Container>
         : <div>
           <p>Inicia sesión</p>
           <Link href="/login">Ir</Link>
