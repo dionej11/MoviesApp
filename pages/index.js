@@ -3,6 +3,7 @@ import { useAuth } from './context/authContext';
 import { useRouter } from 'next/router';
 // import { ProtectedRoute } from './protectedRoute';
 import Link from 'next/link';
+import { Example } from '../components/example/example';
 
 export default function Home() {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function Home() {
         user ?
         <div>
           <h1>Welcome {user.email}</h1>
+          <Example>Hola jejeje</Example>
           <button onClick={handleLogout}>Salir</button>
         </div>
         : <div>
