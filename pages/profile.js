@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { useAuth } from './context/authContext';
 import Link from 'next/link';
+import HeaderApp from '../components/header/header';
+import Headerprofile from '../components/headerProfile/headerProfile';
 
 export default function Profile() {
 
@@ -16,9 +18,10 @@ export default function Profile() {
             </Head>
             {
                 user ?
-                <div>
-                    <h1>Welcome {user.email}</h1>
-                </div>
+                <>
+                    <HeaderApp>Mi perfil</HeaderApp>
+                    <Headerprofile />
+                </>
                 : <div>
                     <p>Inicia sesión con Google</p>
                     <Link href="/login">Ir</Link>
