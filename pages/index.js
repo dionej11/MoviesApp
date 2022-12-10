@@ -1,41 +1,23 @@
 import Head from 'next/head'
 import { useAuth } from './context/authContext';
-import { useRouter } from 'next/router';
 import { useState, useEffect } from "react";
-
-import Image from 'next/image';
-import Logo from '../assets/Logo.png';
-
-// import { ProtectedRoute } from './protectedRoute';
 import Link from 'next/link';
-import { Container } from '../components/example/templateContainer';
+import { Container } from '../components/homeComp/container';
 import  Menu  from '../components/menu/index';
-import Card from '../components/cards/card';
-import { jsonEval } from '@firebase/util';
 
 export default function Home() {
-  const router = useRouter();
+  const {user, loading} = useAuth();
   const [dataMovies, setDataMovies] = useState("");
-
+  const [pagination, setPagination] = useState(1);
   useEffect(()=>{
-    getDataMovies();
-},[]);
+    getDataMovies(pagination);
+  },[]);
 
-  const {user, logout, loading} = useAuth();
-  console.log(user);
+  // console.log(user);
 
-  const handleLogout = async () => {
+  const getDataMovies = async (page) => {
     try {
-      await logout();
-      router.push('/login'); 
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  const getDataMovies = async () => {
-    try {
-        const response = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=54b6f133755c56961a226c9f72c7c0e5&language=es-ES&page=1',{
+        const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=54b6f133755c56961a226c9f72c7c0e5&language=es-ES&page=${page}`,{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -43,8 +25,8 @@ export default function Home() {
             method: 'GET'
         });
         const responseJson = await response.json();
-        console.log(responseJson.results);
-        setDataMovies(responseJson.results);
+        // console.log(responseJson.results);
+        setDataMovies(responseJson.results.reverse());
     } catch (error) {
         console.log(error);
     }
@@ -60,21 +42,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        user ?
+        user && dataMovies ?
         <>
-          <Container>
-            <Image src={Logo} alt="Logo" width="100" />
-            <p>Lo más reciente</p>
-            <div>
-              {
-                dataMovies ?
-                <p>no se</p>
-                :<p>No hay pelis que mostrar</p>
-              }
-            </div>
-            {/* <h1>Welcome {user.email}</h1>
-            <button onClick={handleLogout}>Salir</button> */}
-          </Container>
+          <Container data={dataMovies} getData = {getDataMovies} actualPage = {pagination} updatePage = {setPagination} />
           <Menu />
         </>
         : <div>

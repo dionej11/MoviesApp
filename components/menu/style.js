@@ -13,5 +13,6 @@ export const CONTAINER__nav = Styled.nav`
     padding: 0 10px;
     margin: 0 auto;
     z-index: 99;
-    background-color: #f7f7f726;
+    backdrop-filter: blur(2px);
+    background-color: rgb(32 35 46 / 86%);
 `

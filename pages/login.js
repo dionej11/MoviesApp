@@ -7,8 +7,12 @@ import Poster1 from '../assets/poster1.webp';
 import Poster2 from '../assets/poster2.jpg';
 import Poster3 from '../assets/poster3.webp';
 import Poster4 from '../assets/poster4.jpg';
-import Styled from 'styled-components';
-import globalvar from "../styles/globalvar";
+import {
+  CONTAINER__div,
+  CONTAINER_movies__div,
+  WELCOME_TEXT__p,
+  BTN_GOOGLE__button
+} from '../components/loginStyles';
 
 export default function Login() {
   const [user, setUser] = useState({email:'', password:''});
@@ -42,43 +46,6 @@ export default function Login() {
     }
   }
 
-  const CONTAINER__div = Styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 1rem 2rem;
-  `
-  const WELCOME_TEXT__p = Styled.p`
-    color: ${globalvar.COLORS.Blanco};
-    font-size: 1.2rem;
-    text-align: center;
-    margin: 3rem 0;
-  `
-  const CONTAINER_movies__div = Styled.div`
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 5px;
-    width: 100%;
-    height: 15rem;
-    & img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  `
-  const BTN_GOOGLE__button = Styled.button`
-    width: 100%;
-    height: 2.5rem;
-    border-radius: 5px;
-    background-color: ${globalvar.COLORS.Morado};
-    color: ${globalvar.COLORS.Blanco};
-    font-family: 'Fira Sans', sans-serif;
-    font-size: 1rem;
-    cursor: pointer;
-    margin: 3rem 0;
-  `
-
     return (
       <CONTAINER__div>
         {/* {
@@ -94,7 +61,7 @@ export default function Login() {
         </form> */}
         <Image src={Logo} alt="Logo" width="200" />
         <WELCOME_TEXT__p>
-          Descubre lo maravilloso del cine a un solo click...
+            Dale un seguimiento a todas tus peliculas y construye tu propia biblioteca de cine.
         </WELCOME_TEXT__p>
         <CONTAINER_movies__div>
           <Image src={Poster1} alt="Poster1" width="100%" height="100%" />

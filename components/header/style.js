@@ -2,20 +2,30 @@ import Styled from 'styled-components';
 import GlobalStyle from '../../styles/globalvar.js';
 
 export const CONTENT__div = Styled.div`
-    display: flex;
-    width: 50%;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 0 1rem;
+    /* margin-top: 1rem;
     margin-left: 30px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; */
 `
 export const BACK__button = Styled.button`
     background: transparent;
     border: none;
+    width: fit-content;
+`
+export const LOGOUT__button = Styled.button`
+    background: transparent;
+    border: none;
+    color: ${GlobalStyle.COLORS.Blanco};
+    font-size: 1rem;
+    font-family: 'Fira Sans', sans-serif;
+    text-align: end;
 `
 export const TEXTTITLE__p = Styled.p`
     font-size: ${GlobalStyle.FONT_SIZES.Grande};
     color: ${GlobalStyle.COLORS.Blanco};
     font-weight: 600;
+    text-align: center;
 `
