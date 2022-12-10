@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useAuth } from '../../pages/context/authContext';
 import { useState } from 'react';
+import {database} from '../../firebase'
+import { ref, set, push } from "firebase/database";
 
 /**Styled Components**/
 import {
@@ -22,10 +24,24 @@ export default function HeaderProfile() {
     const [collectionColor, setCollectionColor] = useState("");
 
     const { user } = useAuth();
-    console.log(user);
+    // console.log(user);
+
+    const writeUserData = async (name,color) => {
+        console.log("nombre ", name);
+        console.log("color ", color);
+        
+        try {
+            push(ref(database, `users/${user.uid}/colecctions`), {
+                nameColecction: name,
+                colorColection: color
+            });
+            Swal.fire('Colección creada con exito');
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const modal = async () => {
-
         const { value: name } = await Swal.fire({
             input: 'text',
             inputLabel: 'Nombre de la colección',
@@ -38,49 +54,32 @@ export default function HeaderProfile() {
             }
         })
         if (name) {
-            Swal.fire({
-                text: `El nombre ingresado fue: ${name}`,
-                confirmButtonText: 'Siguiente',
-                confirmButtonColor: "#6421FF",
-                background: "#040814",
-                color: "#F1F1F1",
-            })
-                .then(async response => {
-                    if (response.isConfirmed) {
-                        const inputOptions = new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve({
-                                    '#F6FFBE': 'Amarillo',
-                                    '#C2FFD0': 'Azul',
-                                    '#E6B1FF': 'Rosa'
-                                })
-                            }, 1000)
-                        })
-
-                        const { value: color } = await Swal.fire({
-                            text: 'Selecciona el color',
-                            input: 'radio',
-                            inputOptions: inputOptions,
-                            background: "#040814",
-                            color: "#F1F1F1",
-                            confirmButtonColor: "#6421FF",
-                            inputValidator: (value) => {
-                                if (!value) {
-                                    return 'Debes elegir un color!'
-                                }
-                            }
-                        })
-                        if (color) {
-                            Swal.fire({
-                                text: `El color seleccionado fue: ${color}`,
-                                background: "#040814",
-                                color: "#F1F1F1"
-                            })
-                        }
-                        setCollectionColor(color);
-                    }
-                });
             setCollectionName(name);
+            const inputOptions = new Promise((resolve) => {
+                setTimeout(() => {
+                  resolve({
+                    '#F6FFBE': 'Amarillo',
+                    '#C2FFD0': 'Verde',
+                    '#E6B1FF': 'Rosa'
+                  })
+                }, 800)
+            })
+              
+            const { value: color } = await Swal.fire({
+            title: 'Select color',
+            input: 'radio',
+            inputOptions: inputOptions,
+            inputValidator: (value) => {
+                if (!value) {
+                return 'You need to choose something!'
+                }
+            }
+            })
+              
+            if (color) {
+                setCollectionColor(color);
+                writeUserData(name, color);
+            }
         }
     }
 
@@ -103,8 +102,6 @@ export default function HeaderProfile() {
             </CONTENT__div>
             <CONTENTBUTTON__div>
                 <NEWCOLLECTION__button onClick={() => modal()}>Crear nueva colección</NEWCOLLECTION__button>
-                {console.log(collectionName)}
-                {console.log(collectionColor)}
             </CONTENTBUTTON__div>
         </>
     );

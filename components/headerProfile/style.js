@@ -44,6 +44,7 @@ export const CONTENTBUTTON__div = Styled.div`
     margin: 0 auto;
     z-index: 99;
     background: ${GlobalStyle.COLORS.Morado};
+    cursor:pointer;
 `
 
 export const NEWCOLLECTION__button = Styled.button`
@@ -52,4 +53,7 @@ export const NEWCOLLECTION__button = Styled.button`
     color: ${GlobalStyle.COLORS.Blanco};
     font-size: ${GlobalStyle.FONT_SIZES.Grande};
     font-family: 'Fira Sans', sans-serif;
+    cursor:pointer;
+    width: 100%;
+    height: 100%;
 `

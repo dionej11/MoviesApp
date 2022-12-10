@@ -3,11 +3,12 @@ import { useAuth } from './context/authContext';
 import Link from 'next/link';
 import HeaderApp from '../components/header/header';
 import Headerprofile from '../components/headerProfile/headerProfile';
+import { Challenge } from '../components/challenge';
 
 export default function Profile() {
 
     const { user } = useAuth();
-    console.log(user);
+    // console.log(user);
 
     return (
         <>
@@ -21,6 +22,7 @@ export default function Profile() {
                 <>
                     <HeaderApp>Mi perfil</HeaderApp>
                     <Headerprofile />
+                    <Challenge />
                 </>
                 : <div>
                     <p>Inicia sesión con Google</p>
