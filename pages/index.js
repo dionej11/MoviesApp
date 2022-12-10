@@ -1,14 +1,25 @@
 import Head from 'next/head'
 import { useAuth } from './context/authContext';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from "react";
+
 import Image from 'next/image';
 import Logo from '../assets/Logo.png';
 
 // import { ProtectedRoute } from './protectedRoute';
 import Link from 'next/link';
+import { Container } from '../components/example/templateContainer';
+import  Menu  from '../components/menu/index';
+import Card from '../components/cards/card';
+import { jsonEval } from '@firebase/util';
 
 export default function Home() {
   const router = useRouter();
+  const [dataMovies, setDataMovies] = useState("");
+
+  useEffect(()=>{
+    getDataMovies();
+},[]);
 
   const {user, logout, loading} = useAuth();
   console.log(user);
@@ -22,6 +33,23 @@ export default function Home() {
     }
   }
 
+  const getDataMovies = async () => {
+    try {
+        const response = await fetch('https://api.themoviedb.org/3/movie/popular?api_key=54b6f133755c56961a226c9f72c7c0e5&language=es-ES&page=1',{
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            method: 'GET'
+        });
+        const responseJson = await response.json();
+        console.log(responseJson.results);
+        setDataMovies(responseJson.results);
+    } catch (error) {
+        console.log(error);
+    }
+  } 
+
   if (loading) return <span>Loading...</span>
 
   return (
@@ -33,12 +61,22 @@ export default function Home() {
       </Head>
       {
         user ?
-        <Container>
-          <Image src={Logo} alt="Logo" width="100" />
-          <p>Lo más reciente</p>
-          {/* <h1>Welcome {user.email}</h1>
-          <button onClick={handleLogout}>Salir</button> */}
-        </Container>
+        <>
+          <Container>
+            <Image src={Logo} alt="Logo" width="100" />
+            <p>Lo más reciente</p>
+            <div>
+              {
+                dataMovies ?
+                <p>no se</p>
+                :<p>No hay pelis que mostrar</p>
+              }
+            </div>
+            {/* <h1>Welcome {user.email}</h1>
+            <button onClick={handleLogout}>Salir</button> */}
+          </Container>
+          <Menu />
+        </>
         : <div>
           <p>Inicia sesión</p>
           <Link href="/login">Ir</Link>
