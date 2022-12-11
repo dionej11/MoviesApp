@@ -11,8 +11,17 @@ export const TEXT_CHALLENGE__p = Styled.p`
 export const RANGE_CON__div = Styled.div`
     display:flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     color: ${GlobalStyle.COLORS.Blanco};
+    & button {
+        border: none;
+        background: none;
+        color: ${GlobalStyle.COLORS.Blanco};
+        font-family: 'Fira Sans', sans-serif;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 `
 export const RANGE__progress = Styled.progress`
     width: 100%;

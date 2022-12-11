@@ -4,11 +4,32 @@ import Link from 'next/link';
 import HeaderApp from '../components/header/header';
 import Headerprofile from '../components/headerProfile/headerProfile';
 import { Challenge } from '../components/challenge';
+import { useEffect, useState } from 'react';
+import {database} from '../firebase';
+import { ref, child, get  } from "firebase/database";
+import { Collections } from '../components/collections';
 
 export default function Profile() {
-
     const { user } = useAuth();
-    // console.log(user);
+    const [collections, setcollections] = useState(null);
+    const [challenge, setChallenge] = useState(null);
+
+    useEffect(()=>{
+        const dbRef = ref(database);
+
+        if (user) {
+            get(child(dbRef, `users/${user.uid}`)).then(snapshot => {
+                if (snapshot.exists()) {
+                    let collectionsArray = [];
+                    Object.entries(snapshot.val().collections).forEach(([key, value]) => collectionsArray.push({key, ...value}));
+                    setcollections(collectionsArray);
+                    setChallenge(snapshot.val().challenge);
+                } else {
+                    console.log("No data available");
+                }
+            }).catch(error => {console.log(error)});
+        }
+    },[user]);
 
     return (
         <>
@@ -21,8 +42,9 @@ export default function Profile() {
                 user ?
                 <>
                     <HeaderApp>Mi perfil</HeaderApp>
-                    <Headerprofile />
-                    <Challenge />
+                    <Headerprofile setColl={setcollections} />
+                    <Challenge challe={challenge} setChan={setChallenge} />
+                    <Collections collec={collections} />
                 </>
                 : <div>
                     <p>Inicia sesión con Google</p>

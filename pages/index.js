@@ -4,16 +4,34 @@ import { useState, useEffect } from "react";
 import Link from 'next/link';
 import { Container } from '../components/homeComp/container';
 import  Menu  from '../components/menu/index';
+import {database} from '../firebase';
+import { ref, child, get  } from "firebase/database";
 
 export default function Home() {
   const {user, loading} = useAuth();
   const [dataMovies, setDataMovies] = useState("");
+  const [dataUser, setDataUser] = useState(null);
   const [pagination, setPagination] = useState(1);
+
   useEffect(()=>{
     getDataMovies(pagination);
-  },[]);
+    user ?
+    getDataUser():null
+  },[user]);
 
-  // console.log(user);
+  const getDataUser = async () => {
+    const dbRef = ref(database);
+    get(child(dbRef, `users/${user.uid}`)).then(snapshot => {
+        if (snapshot.exists()) {
+            let collectionsObj = {};
+            Object.entries(snapshot.val().collections).forEach(([key, value]) => collectionsObj[key] = value.nameColecction);
+            setDataUser(collectionsObj);
+        } else {
+            console.log("No data available");
+        }
+    }).catch(error => {console.log(error)});
+
+  }
 
   const getDataMovies = async (page) => {
     try {
@@ -25,7 +43,6 @@ export default function Home() {
             method: 'GET'
         });
         const responseJson = await response.json();
-        // console.log(responseJson.results);
         setDataMovies(responseJson.results.reverse());
     } catch (error) {
         console.log(error);
@@ -44,7 +61,7 @@ export default function Home() {
       {
         user && dataMovies ?
         <>
-          <Container data={dataMovies} getData = {getDataMovies} actualPage = {pagination} updatePage = {setPagination} />
+          <Container user={user} dataUser={dataUser} data={dataMovies} getData = {getDataMovies} actualPage = {pagination} updatePage = {setPagination} />
           <Menu />
         </>
         : <div>

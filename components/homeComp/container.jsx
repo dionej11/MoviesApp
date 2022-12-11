@@ -1,5 +1,9 @@
 import Image from 'next/image';
 import Logo from '../../assets/Logo.png';
+import Swal from 'sweetalert2';
+import {database} from '../../firebase';
+import { ref, push } from "firebase/database";
+
 import {
     CONTAINER__div, 
     MINI_TEXT__p, 
@@ -12,8 +16,37 @@ import {
 } from './styles'
 
 export const Container = (props) => {
-    const {data, getData, actualPage,updatePage} = props;
-    console.log(data);
+    const {user, dataUser, data, getData, actualPage,updatePage} = props;
+
+    const modal = async (movie) => {
+        const { value: collectionSelected } = await Swal.fire({
+            title: 'Añadir esta pelicula a la colección:',
+            input: 'select',
+            inputOptions: dataUser,
+            inputPlaceholder: 'Selecciona una colección',
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Debes seleccionar una colección'
+                }
+            }
+        })
+        
+        if (collectionSelected) {
+            Swal.fire(`Añadida correctamente`);
+            addMovie(movie, collectionSelected);
+        }
+    }
+    const addMovie = (movie, collection) => {
+        // console.log("Peli ha añadir",movie);
+        // console.log("En la colleción",collection);
+        const {poster_path, title,overview} = movie;
+
+        push(ref(database, `users/${user.uid}/collections/${collection}/movies`), {
+            dataMovie: {poster_path, title, overview},
+            watched: false
+        });
+    }
     return (
         <CONTAINER__div>
             <Image src={Logo} alt="Logo" width="100" priority />
@@ -33,7 +66,7 @@ export const Container = (props) => {
                                     :`${movie.overview.slice(0, 50)}...`
                                 }</p>
                             </INFO__div>
-                            <ADD__button>+</ADD__button>
+                            <ADD__button onClick={() => modal(movie)}>+</ADD__button>
                         </MOVIE__div>
                     )
                 }

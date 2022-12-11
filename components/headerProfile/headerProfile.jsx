@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { useAuth } from '../../pages/context/authContext';
 import { useState } from 'react';
-import {database} from '../../firebase'
-import { ref, set, push } from "firebase/database";
+import {database} from '../../firebase';
+import { ref, set, push, child, get  } from "firebase/database";
+import Swal from 'sweetalert2';
 
 /**Styled Components**/
 import {
@@ -16,25 +17,29 @@ import {
 } from './style.js';
 
 /** ALERTS */
-import Swal from 'sweetalert2';
 
-export default function HeaderProfile() {
-
-    const [collectionName, setCollectionName] = useState("");
-    const [collectionColor, setCollectionColor] = useState("");
-
+export default function HeaderProfile({setColl}) {
     const { user } = useAuth();
-    // console.log(user);
-
-    const writeUserData = async (name,color) => {
-        console.log("nombre ", name);
-        console.log("color ", color);
-        
+    
+    const writeUserDataColecction = async (name,color) => {
         try {
-            push(ref(database, `users/${user.uid}/colecctions`), {
+            const dbRef = ref(database);
+            push(ref(database, `users/${user.uid}/collections`), {
                 nameColecction: name,
                 colorColection: color
             });
+            get(child(dbRef, `users/${user.uid}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    let collectionsArray = [];
+                    Object.entries(snapshot.val().collections).forEach(([key, value]) => collectionsArray.push({key, ...value}));
+                    setColl(collectionsArray);
+                } else {
+                    console.log("No data available");
+                }
+                }).catch((error) => {
+                    console.error(error);
+                }
+            );
             Swal.fire('Colección creada con exito');
         } catch (error) {
             console.log(error);
@@ -54,7 +59,6 @@ export default function HeaderProfile() {
             }
         })
         if (name) {
-            setCollectionName(name);
             const inputOptions = new Promise((resolve) => {
                 setTimeout(() => {
                   resolve({
@@ -77,8 +81,7 @@ export default function HeaderProfile() {
             })
               
             if (color) {
-                setCollectionColor(color);
-                writeUserData(name, color);
+                writeUserDataColecction(name, color);
             }
         }
     }
