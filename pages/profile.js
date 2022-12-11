@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useAuth } from './context/authContext';
+import { useAuth } from '../components/context/authContext';
 import Link from 'next/link';
 import HeaderApp from '../components/header/header';
 import Headerprofile from '../components/headerProfile/headerProfile';

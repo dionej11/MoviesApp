@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useAuth } from './context/authContext';
+import { useAuth } from '../components/context/authContext';
 import { useState, useEffect } from "react";
 import Link from 'next/link';
 import { Container } from '../components/homeComp/container';

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useAuth } from "./context/authContext";
+import { useAuth } from "../components/context/authContext";
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Logo from '../assets/Logo.png';

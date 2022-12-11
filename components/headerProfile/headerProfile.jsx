@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useAuth } from '../../pages/context/authContext';
+import { useAuth } from '../../components/context/authContext';
 import { useState } from 'react';
 import {database} from '../../firebase';
 import { ref, set, push, child, get  } from "firebase/database";

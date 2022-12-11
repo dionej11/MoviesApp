@@ -39,10 +39,17 @@ export const MOVIE__div = Styled.div`
     color: ${GlobalStyle.COLORS.Negro};
     align-items: flex-start;
 `
+export const CONTENT_BTN = Styled.div`
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80%;
+`
+
 export const ADD__button = Styled.button`
     width: 2rem;
     height: 2rem;
-    background: ${GlobalStyle.COLORS.Morado};
+    background: ${props => props.color? props.color: GlobalStyle.COLORS.Morado};
     border-radius: 100%;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};

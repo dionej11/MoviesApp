@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../../pages/context/authContext';
+import { useAuth } from '../context/authContext';
 import {database} from '../../firebase'
 import { ref, set } from "firebase/database";
 import Swal from 'sweetalert2';

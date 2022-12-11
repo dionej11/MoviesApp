@@ -1,5 +1,5 @@
 import {useRouter } from 'next/router';
-import { useAuth } from '../../pages/context/authContext';
+import { useAuth } from '../../components/context/authContext';
 
 import { BackIcon } from "../../assets/backIcon.jsx";
 
