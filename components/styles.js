@@ -1,5 +1,5 @@
 import Styled from 'styled-components';
-import GlobalStyle from '../../styles/globalvar.js';
+import GlobalStyle from '../styles/globalvar.js';
 
 export const INFO_COLLECTION__section = Styled.div`
     display: flex;

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { ref, child, get, update, remove } from "firebase/database";
 import {database} from '../../firebase';
 import { MOVIES__section, MOVIE__div, PHOTO_MOVIE__div, INFO__div, ADD__button, CONTAINER__div, CONTENT_BTN } from "../../components/homeComp/styles";
-import {INFO_COLLECTION__section,COLOR, COLOR__CONTAINER, HEADER_EDITED__head} from './styles'
+import {INFO_COLLECTION__section,COLOR, COLOR__CONTAINER, HEADER_EDITED__head} from '../../components/styles'
 import {Watch} from '../../assets/watch.jsx';
 import {NoWatch} from '../../assets/notwatch.jsx';
 import { BackIcon } from "../../assets/backIcon";
