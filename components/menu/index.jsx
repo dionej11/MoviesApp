@@ -1,24 +1,38 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useAuth } from '../../components/context/authContext';
 
 /*Assets */
 import SearchIcon from '../../assets/lupa.svg';
 import HomeIcom from '../../assets/home.svg';
 import ProfileIcon from '../../assets/perfil.svg';
+import ExitIcon from '../../assets/exit.svg';
 
 /*Syled Components */
 import { CONTAINER__nav } from './style.js';
 
 export default function Menu() {
+
     const params = useRouter().route;
+    const router = useRouter();
+
+    const { logout } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            //router.push('/login');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
     return (
         <>
             <CONTAINER__nav>
-                <a href='/search'>
+                <a href='/profile'>
                     <Image
-                        src={SearchIcon}
-                        alt={`Lupa`}
+                        src={ProfileIcon}
+                        alt={`Perfil`}
                         width={20}
                         height={20}
                     />
@@ -31,10 +45,10 @@ export default function Menu() {
                         height={20}
                     />
                 </a>
-                <a href='/profile'>
+                <a href='/login' onClick={handleLogout}>
                     <Image
-                        src={ProfileIcon}
-                        alt={`Perfil`}
+                        src={ExitIcon}
+                        alt={`Exit`}
                         width={20}
                         height={20}
                     />
