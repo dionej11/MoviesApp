@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useAuth } from '../context/authContext';
 import {database} from '../../firebase'
-import { ref, set } from "firebase/database";
+import { ref, set, get, child, update } from "firebase/database";
 import Swal from 'sweetalert2';
 
 import {
@@ -11,8 +11,37 @@ import {
     RANGE__progress
 } from './styles';
 
-export const Challenge = ({challe, setChan}) =>{
+export const Challenge = ({challeMax, challeValue, setChanMax, setChanValue}) =>{
     const { user } = useAuth();
+    
+    useEffect(()=>{
+        if (challeMax || challeValue) {
+            const dbRef = ref(database);
+            get(child(dbRef, `users/${user.uid}/collections`)).then(snapshot => {
+                if (snapshot.exists()) {
+                    let contador = 0;
+                    snapshot.val() ?
+                        Object.entries(snapshot.val()).forEach((value) => {
+                            value[1].movies ? 
+                                Object.entries(value[1].movies).forEach((value) => {
+                                    value[1].watched ? contador++ :null
+                                })
+                            : null 
+                        })
+                    : {}
+                    // console.log(contador);
+                    setChanValue(contador);
+
+                    update(child(dbRef, `users/${user.uid}/challenge`), {
+                        value: contador
+                    }).catch(error => {console.log(error)});
+                } else {
+                    console.log("No data available");   
+                }
+            }).catch(error => {console.log(error)});
+        }
+    },[challeMax])
+    
     
     const newChallenger = async (cant) => {
         try {
@@ -20,7 +49,9 @@ export const Challenge = ({challe, setChan}) =>{
                 max: cant,
                 value: 0
             });
-            setChan({max:cant, value:0});
+            setChanValue(0);
+            setChanMax(cant);
+            // setChan({max:cant, value:0});
             Swal.fire('Reto creado con exito');
         } catch (error) {
             console.log(error);
@@ -49,10 +80,10 @@ export const Challenge = ({challe, setChan}) =>{
             <TEXT_CHALLENGE__p>Movier Reto 2022</TEXT_CHALLENGE__p>
             <RANGE_CON__div>
                 {
-                    challe ? 
+                    challeMax && challeValue ? 
                     <>
-                        <RANGE__progress max={challe.max} value={challe.value} type="range" />
-                        <span>{`${challe.value}/${challe.max}`}</span>
+                        <RANGE__progress max={challeMax} value={challeValue} type="range" />
+                        <span>{`${challeValue}/${challeMax}`}</span>
                     </>: 
                     <>
                         <RANGE__progress max="100" value="0" type="range" />

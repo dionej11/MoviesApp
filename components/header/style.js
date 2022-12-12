@@ -14,6 +14,7 @@ export const BACK__button = Styled.button`
     background: transparent;
     border: none;
     width: fit-content;
+    cursor: pointer;
 `
 export const LOGOUT__button = Styled.button`
     background: transparent;
@@ -22,6 +23,7 @@ export const LOGOUT__button = Styled.button`
     font-size: 1rem;
     font-family: 'Fira Sans', sans-serif;
     text-align: end;
+    cursor: pointer;
 `
 export const TEXTTITLE__p = Styled.p`
     font-size: ${GlobalStyle.FONT_SIZES.Grande};

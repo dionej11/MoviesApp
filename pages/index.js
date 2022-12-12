@@ -1,11 +1,12 @@
 import Head from 'next/head'
 import { useAuth } from '../components/context/authContext';
 import { useState, useEffect } from "react";
-import Link from 'next/link';
 import { Container } from '../components/homeComp/container';
 import  Menu  from '../components/menu/index';
 import {database} from '../firebase';
 import { ref, child, get  } from "firebase/database";
+import { Protect } from '../components/protect';
+import { Loading } from '../components/loading';
 
 export default function Home() {
   const {user, loading} = useAuth();
@@ -59,15 +60,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        user && dataMovies ?
-        <>
-          <Container user={user} dataUser={dataUser} data={dataMovies} getData = {getDataMovies} actualPage = {pagination} updatePage = {setPagination} />
-          <Menu />
-        </>
-        : <div>
-          <p>Inicia sesión</p>
-          <Link href="/login">Ir</Link>
-        </div>
+        user ?
+          dataMovies ?
+            <>
+              <Container user={user} dataUser={dataUser} data={dataMovies} getData = {getDataMovies} actualPage = {pagination} updatePage = {setPagination} />
+              <Menu />
+            </>
+          : <Loading>Cargando...</Loading>
+        : <Protect />
       }
     </div>
   )
