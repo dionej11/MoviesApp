@@ -45,6 +45,7 @@ export const Container = (props) => {
 
             } else {
                 console.log("No data available");
+                Swal.fire(`Aún no tienes colecciones creadas`);
             }
         }).catch(error => { console.log(error) });
     }
