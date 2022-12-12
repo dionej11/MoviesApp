@@ -15,6 +15,7 @@ import {
     CONTENTBUTTON__div,
     NEWCOLLECTION__button
 } from './style.js';
+import { Loading } from '../loading';
 
 /** ALERTS */
 
@@ -89,19 +90,25 @@ export default function HeaderProfile({setColl}) {
     return (
         <>
             <CONTENT__div>
-                <CONTENTIMAGE__div>
-                    <Image
-                        src={user.photoURL}
-                        alt={`Imagen de perfil`}
-                        width={20}
-                        height={20}
-                        layout="responsive"
-                    />
-                </CONTENTIMAGE__div>
-                <CONTENTINFO__div>
-                    <TEXTTITLE__p>{user.displayName}</TEXTTITLE__p>
-                    <TEXTTITLETWO__p>{user.email}</TEXTTITLETWO__p>
-                </CONTENTINFO__div>
+                {
+                    user ? 
+                    <>
+                        <CONTENTIMAGE__div>
+                            <Image
+                                src={user.photoURL}
+                                alt={`Imagen de perfil`}
+                                width={20}
+                                height={20}
+                                layout="responsive"
+                                />
+                        </CONTENTIMAGE__div>
+                        <CONTENTINFO__div>
+                            <TEXTTITLE__p>{user.displayName}</TEXTTITLE__p>
+                            <TEXTTITLETWO__p>{user.email}</TEXTTITLETWO__p>
+                        </CONTENTINFO__div>
+                    </>
+                    : <Loading>Cargando...</Loading>
+                }
             </CONTENT__div>
             <CONTENTBUTTON__div>
                 <NEWCOLLECTION__button onClick={() => modal()}>Crear nueva colección</NEWCOLLECTION__button>

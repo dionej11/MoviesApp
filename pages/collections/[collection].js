@@ -13,9 +13,11 @@ import {NoWatch} from '../../assets/notwatch.jsx';
 import { BackIcon } from "../../assets/backIcon";
 import Swal from 'sweetalert2';
 import { Loading } from "../../components/loading";
+import { Delete } from "../../assets/delete";
 
 export default function Collectio() {
     const { user } = useAuth();
+    const router = useRouter();
     const paramsRouter = useRouter().query.collection;
     const [data, setData] = useState(null);
     const [moviesWatched, setMoviesWatched] = useState(0);
@@ -54,6 +56,8 @@ export default function Collectio() {
         Swal.fire({
             title: 'Estas apunto de eliminar una pelicula',
             text: "¿De verdad quieres eliminarla?",
+            background: "#040814",
+            color: "#f1f1f1",
             icon: 'warning',
             iconColor: "#d33",
             showCancelButton: true,
@@ -66,10 +70,13 @@ export default function Collectio() {
                 remove(child(dbRef, `users/${user.uid}/collections/${paramsRouter}/movies/${movie.key}`))
                 .catch(error => {console.log(error)});
                 getDataCollection();
-                Swal.fire(
-                    'Eliminada!',
-                    'Tu pelicula ha sido eliminada',
-                    'success'
+                Swal.fire({
+                    title:'Eliminada!',
+                    text:'Tu pelicula ha sido eliminada',
+                    icon:'success',
+                    background: "#040814",
+                    color: "#f1f1f1",
+                }
                 );
             }
           })
@@ -82,6 +89,36 @@ export default function Collectio() {
         }).catch(error => {console.log(error)});
 
         getDataCollection();
+    }
+    const deleteCollection = () => {
+        Swal.fire({
+            title: 'Estas apunto de eliminar esta colección',
+            text: "¿De verdad quieres eliminarla?",
+            background: "#040814",
+            color: "#f1f1f1",
+            icon: 'warning',
+            iconColor: "#d33",
+            showCancelButton: true,
+            confirmButtonColor: '#6421FF',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const dbRef = ref(database);
+                remove(child(dbRef, `users/${user.uid}/collections/${paramsRouter}`))
+                .catch(error => {console.log(error)});
+                getDataCollection();
+                Swal.fire({
+                    title:'Eliminada!',
+                    text:'Tu colección ha sido eliminada',
+                    icon:'success',
+                    background: "#040814",
+                    color: "#f1f1f1",
+                }
+                );
+                router.push('/profile');
+            }
+        })
     }
 
     return (
@@ -100,6 +137,7 @@ export default function Collectio() {
                         <p>Colección: {data.nameColl}</p>
                     :null
                 }
+                <button onClick={() => deleteCollection()}><Delete /></button>
             </HEADER_EDITED__head>
             <CONTAINER__div>
                 <INFO_COLLECTION__section>

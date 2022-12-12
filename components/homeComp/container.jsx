@@ -16,6 +16,7 @@ import {
     PHOTO_MOVIE__div,
     MORE_MOVIES__button
 } from './styles'
+import Link from 'next/link';
 
 export const Container = (props) => {
     const { user, dataUser, data, getData, actualPage, updatePage } = props;
@@ -87,15 +88,17 @@ export const Container = (props) => {
                 {
                     data.map((movie, index) =>
                         <MOVIE__div key={index}>
-                            <PHOTO_MOVIE__div>
-                                <Image src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt="img" width="100" height="100" />
-                            </PHOTO_MOVIE__div>
+                            <Link href={`https://www.themoviedb.org/movie/${movie.id}-${movie.original_title.replace(" ","-").toLowerCase()}`} target="_blank">
+                                <PHOTO_MOVIE__div>
+                                    <Image src={`https://www.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`} alt="img" width="100" height="100" />
+                                </PHOTO_MOVIE__div>
+                            </Link>
                             <INFO__div>
                                 <h4>{movie.title}</h4>
                                 <p>{
                                     movie.title.length <= 12 ?
-                                        `${movie.overview.slice(0, 70)}...`
-                                        : `${movie.overview.slice(0, 50)}...`
+                                    `${movie.overview.slice(0, 70)}...`
+                                    : `${movie.overview.slice(0, 50)}...`
                                 }</p>
                             </INFO__div>
                             <ADD__button onClick={() => { getDataMovieExist(movie); }} >+</ADD__button>

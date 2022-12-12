@@ -5,7 +5,7 @@ import Play from '../../assets/Play_02.png';
 export const Loading = ({children}) => {
     return(
         <LOADING__div>
-            <Image src={Play} alt="Play icon" width="80" />
+            <Image src={Play} alt="Play icon" width="50" />
             <p>{children}</p>
         </LOADING__div>
     )

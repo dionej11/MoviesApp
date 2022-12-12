@@ -30,8 +30,13 @@ export const HEADER_EDITED__head = Styled.header`
     display: grid;
     grid-template-columns: repeat(3,1fr);
     padding: 0 1rem;
+    justify-items:center;
     align-content: center;
     align-items: center;
+
+    & a {
+        justify-self: start;
+    }
 
     & p {
         width: max-content;
@@ -41,5 +46,12 @@ export const HEADER_EDITED__head = Styled.header`
         font-size: 1.3rem;
         text-align: center;
         font-family: 'Fira Sans', sans-serif;
+    }
+    & button {
+        background: none;
+        width: max-content;
+        border:none;
+        cursor: pointer;
+        justify-self: end;
     }
 `
