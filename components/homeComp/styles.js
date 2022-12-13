@@ -45,7 +45,6 @@ export const CONTENT_BTN = Styled.div`
     justify-content: space-between;
     height: 80%;
 `
-ADD__BTN__div
 export const ADD__BTN__div = Styled.div`
     width: 2rem;
     height: 2rem;
