@@ -46,9 +46,6 @@ export const CONTENT_BTN = Styled.div`
     height: 80%;
 `
 export const ADD__BTN__div = Styled.div`
-    display: flex;
-    justify-content: start;
-    align-items: center;
     width: 2rem;
     height: 2rem;
     background: ${props => props.color? props.color: GlobalStyle.COLORS.Morado};
@@ -58,8 +55,9 @@ export const ADD__BTN__div = Styled.div`
 `
 export const ADD__button = Styled.button`
     -webkit-appearance: none;
-    width: max-content;
+    width: 100%;
     height: max-content;
+    margin: 0 auto;
     background: none;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
