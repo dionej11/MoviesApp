@@ -45,14 +45,19 @@ export const CONTENT_BTN = Styled.div`
     justify-content: space-between;
     height: 80%;
 `
-
-export const ADD__button = Styled.button`
+ADD__BTN__div
+export const ADD__BTN__div = Styled.div`
     width: 2rem;
     height: 2rem;
     background: ${props => props.color? props.color: GlobalStyle.COLORS.Morado};
     border-radius: 100%;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
+`
+export const ADD__button = Styled.button`
+    width: 100%;
+    height: 100%;
+    background: none;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
     font-size: 1.5rem;

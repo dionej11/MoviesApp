@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { ref, child, get, update, remove } from "firebase/database";
 import {database} from '../../firebase';
-import { MOVIES__section, MOVIE__div, PHOTO_MOVIE__div, INFO__div, ADD__button, CONTAINER__div, CONTENT_BTN } from "../../components/homeComp/styles";
+import { MOVIES__section, MOVIE__div, PHOTO_MOVIE__div, INFO__div, ADD__button, CONTAINER__div, CONTENT_BTN, ADD__BTN__div } from "../../components/homeComp/styles";
 import {INFO_COLLECTION__section,COLOR, COLOR__CONTAINER, HEADER_EDITED__head} from '../../components/styles'
 import {Watch} from '../../assets/watch.jsx';
 import {NoWatch} from '../../assets/notwatch.jsx';
@@ -172,14 +172,18 @@ export default function Collectio() {
                                         }</p>
                                     </INFO__div>
                                     <CONTENT_BTN>
-                                        <ADD__button color="#FF375A" onClick={() => deleteMovie(movie)}>-</ADD__button>
-                                        <ADD__button onClick={() => stateWatch(movie)}>
-                                            {
-                                                movie.watched ?
-                                                    <NoWatch/>
-                                                : <Watch/>
-                                            }
-                                        </ADD__button>
+                                        <ADD__BTN__div color="#FF375A">
+                                            <ADD__button  onClick={() => deleteMovie(movie)}>-</ADD__button>
+                                        </ADD__BTN__div>
+                                        <ADD__BTN__div>
+                                            <ADD__button onClick={() => stateWatch(movie)}>
+                                                {
+                                                    movie.watched ?
+                                                        <NoWatch/>
+                                                    : <Watch/>
+                                                }
+                                            </ADD__button>
+                                        </ADD__BTN__div>
                                     </CONTENT_BTN>
                                 </MOVIE__div>
                             )

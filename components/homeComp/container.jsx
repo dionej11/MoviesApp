@@ -12,6 +12,7 @@ import {
     MOVIES__section,
     MOVIE__div,
     ADD__button,
+    ADD__BTN__div,
     INFO__div,
     PHOTO_MOVIE__div,
     MORE_MOVIES__button
@@ -101,7 +102,9 @@ export const Container = (props) => {
                                     : `${movie.overview.slice(0, 50)}...`
                                 }</p>
                             </INFO__div>
+                            <ADD__BTN__div>
                             <ADD__button onClick={() => { getDataMovieExist(movie); }} >+</ADD__button>
+                            </ADD__BTN__div>
                         </MOVIE__div>
                     )
                 }
