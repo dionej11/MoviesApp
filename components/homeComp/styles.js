@@ -58,7 +58,7 @@ export const ADD__button = Styled.button`
     width: 100%;
     height: 100%;
     position: relative;
-    left: -10px;
+    left: -20px;
     background: none;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
