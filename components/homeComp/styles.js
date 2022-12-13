@@ -51,6 +51,8 @@ export const ADD__button = Styled.button`
     height: 2rem;
     background: ${props => props.color? props.color: GlobalStyle.COLORS.Morado};
     border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
     font-size: 1.5rem;

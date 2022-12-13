@@ -22,6 +22,8 @@ export const COLOR = Styled.div`
     height: 1.3rem;
     background: ${props => props.color};
     border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
     margin-right: 10px;
 `
 export const HEADER_EDITED__head = Styled.header`
