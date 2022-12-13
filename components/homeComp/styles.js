@@ -57,6 +57,7 @@ export const ADD__BTN__div = Styled.div`
     -moz-border-radius: 100%;
 `
 export const ADD__button = Styled.button`
+    -webkit-appearance: none;
     width: 100%;
     height: 100%;
     background: none;
