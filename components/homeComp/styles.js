@@ -46,6 +46,9 @@ export const CONTENT_BTN = Styled.div`
     height: 80%;
 `
 export const ADD__BTN__div = Styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 2rem;
     height: 2rem;
     background: ${props => props.color? props.color: GlobalStyle.COLORS.Morado};
