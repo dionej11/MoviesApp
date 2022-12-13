@@ -47,7 +47,7 @@ export const CONTENT_BTN = Styled.div`
 `
 export const ADD__BTN__div = Styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     width: 2rem;
     height: 2rem;
@@ -58,8 +58,8 @@ export const ADD__BTN__div = Styled.div`
 `
 export const ADD__button = Styled.button`
     -webkit-appearance: none;
-    width: 100%;
-    height: 100%;
+    width: max-content;
+    height: max-content;
     background: none;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
