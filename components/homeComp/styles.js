@@ -50,19 +50,20 @@ export const ADD__BTN__div = Styled.div`
     height: 2rem;
     background: ${props => props.color? props.color: GlobalStyle.COLORS.Morado};
     border-radius: 100%;
+    text-align: center;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
 `
-export const ADD__button = Styled.button`
-    -webkit-appearance: none;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    left: -15px;
+export const ADD__button = Styled.span`
+    /* -webkit-appearance: none; */
+    /* width: 100%;
+    height: 100%; */
+    /* position: relative; */
+    /* left: -15px; */
     background: none;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     cursor:pointer;
     /* align-self: end; */
 `

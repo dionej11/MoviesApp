@@ -103,7 +103,7 @@ export const Container = (props) => {
                                 }</p>
                             </INFO__div>
                             <ADD__BTN__div>
-                            <ADD__button onClick={() => { getDataMovieExist(movie); }} >+</ADD__button>
+                                <ADD__button onClick={() => { getDataMovieExist(movie); }} >+</ADD__button>
                             </ADD__BTN__div>
                         </MOVIE__div>
                     )
