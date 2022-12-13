@@ -80,12 +80,13 @@ export const Challenge = ({challeMax, challeValue, setChanMax, setChanValue}) =>
             <TEXT_CHALLENGE__p>Movier Reto 2022</TEXT_CHALLENGE__p>
             <RANGE_CON__div>
                 {
-                    challeMax && challeValue ? 
+                    challeMax || challeValue ? 
                     <>
                         <RANGE__progress max={challeMax} value={challeValue} type="range" />
                         <span>{`${challeValue}/${challeMax}`}</span>
                     </>: 
                     <>
+                    {console.log(challeMax)}
                         <RANGE__progress max="100" value="0" type="range" />
                         <span><button onClick={modal}>Crear</button></span>
                     </>
