@@ -56,8 +56,9 @@ export const ADD__BTN__div = Styled.div`
 export const ADD__button = Styled.button`
     -webkit-appearance: none;
     width: 100%;
-    height: max-content;
-    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    left: -10px;
     background: none;
     border: none;
     color: ${GlobalStyle.COLORS.Blanco};
